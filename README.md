@@ -1,50 +1,45 @@
+# STDCN: Spatial Temporal Decomposed Convective Networks
+
 ## Introduction
+This is a PyTorch implementation of STDCN which is designed for the Spatial Temporal Forecasting (STF) task. 
 
-STDCN is designed for the Spatial Temporal Forecasting (STF) task. 
+> \* Equal Contributions.
 
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/pdformer-propagation-delay-aware-dynamic-long/traffic-prediction-on-pemsd4)](https://paperswithcode.com/sota/traffic-prediction-on-pemsd4?p=pdformer-propagation-delay-aware-dynamic-long) 
 
-## Baselines
-SIDLinear surveys a diverse range of Time Series Forecasting methods by different backbone models and the table below provides an overview of these methods along with their references.
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/pdformer-propagation-delay-aware-dynamic-long/traffic-prediction-on-pemsd7)](https://paperswithcode.com/sota/traffic-prediction-on-pemsd7?p=pdformer-propagation-delay-aware-dynamic-long) 
 
-Method        |Type | Category                | Link
---------------|-----|-------------------------|----
-STGCN         |STF  |Prior-Graph-based,2018   |https://arxiv.org/abs/1709.04875
-DCRNN         |STF  |Prior-Graph-based,2018   |https://arxiv.org/abs/1707.01926
-GraphWaveNet  |STF  |Prior-Graph-based,2019   |https://arxiv.org/abs/1906.00121
-DGCRN         |STF  |Prior-Graph-based,2023   |https://arxiv.org/abs/2104.14917
-D2STGNN       |STF  |Prior-Graph-based,2022   |https://arxiv.org/abs/2206.09112
-AGCRN         |STF  |Latent-Graph-based,2020  |https://arxiv.org/abs/2007.02842
-MTGNN         |STF  |Latent-Graph-based,2020  |https://arxiv.org/abs/2005.11650
-StemGNN       |STF  |Latent-Graph-based,2020  |https://arxiv.org/abs/2103.07719
-GTS           |STF  |Latent-Graph-based       |https://arxiv.org/abs/2101.06861
-STNorm        |STF  |Non-Graph-based          |https://dl.acm.org/doi/10.1145/3447548.3467330
-STID          |STF  |Non-Graph-based          |https://arxiv.org/abs/2208.05233
-STGODE        |STF  |todo                     |https://arxiv.org/abs/2106.12931
-STWave        |STF  |todo                     |https://ieeexplore.ieee.org/document/10184591
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/pdformer-propagation-delay-aware-dynamic-long/traffic-prediction-on-pemsd8)](https://paperswithcode.com/sota/traffic-prediction-on-pemsd8?p=pdformer-propagation-delay-aware-dynamic-long) 
 
+
+## Requirements
+Our code is based on Python version 3.11.5 and PyTorch version 2.0.0. Please make sure you have installed Python and PyTorch correctly. 
 
 
 ## Datasets  
 SIDLinear selects a diverse range of real-world datasets from various domains, ensuring a wide coverage of scenarios for STF task.
 
-data                | Variates  | Timesteps | Granularity
---------------------|-----------|-----------|------------
-METR-LA             |207        |1722       |34272 
-PEMS-BAY            |325        |2694       |52116 
-PEMS08              |170        |548        |17856 
-PEMS04              |307        |680        |16992 
+data                | Variates      | Timesteps | Granularity
+--------------------|---------------|-----------|------------
+PEMS08              |170            |548        |17856 
+PEMS04              |307            |680        |16992 
+PEMS07              |883            |866        |28224 
+CHIBike             |270 (15x18)    |1966        |4416 
+T-Drive             |1024 (32x32)   |7812        |3600
 
 ### Datasets Downloading
 
-The raw data can be downloaded at this [Baidu Yun](https://pan.baidu.com/s/12i-U0C5zcRpd_izYtdQF7w)(password: t6ps), and should be unzipped to datasets/raw_data/.
+The raw data can be downloaded at this [Baidu Yun](https://pan.baidu.com/s/1trrqN3lUZG7l-7H6FsMofw)(password: xljf), and should be unzipped to datasets/raw_data/.
 
+> Note that PDFormer would calculate a DTW matrix and a traffic pattern set for each dataset, which is time-consuming. 
 
-## Running
+## Train & evaluate
+You can train and evaluate **STDCN** through the following commands. 
 ```shell
-python runner/evaluation.py  --out_dir /root/autodl-tmp/checkpoints --epoch 50
+python runner/evaluation.py  --out_dir /root/autodl-tmp/checkpoints --epoch 200
 ```
-
+**Note**: By default the result recorded in the experiment log is the average of the first n steps. If you need to get the results of each step separately, please modify this parameter **CFG_GENERAL.TEST.HORIZON= [0,1,2,3,4,5,6,7,8,9,10,11]**
 
 ***
 > todo:
